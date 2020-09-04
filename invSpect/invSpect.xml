@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+Copyright (c) 2006-2010 Bruker BioSpin MRI GmbH. All Rights Reserved.
+$Id: NSPECT.xml,v 1.18.2.3 2015/03/05 12:45:10 mgoe Exp $
+Description: Layout of routine parameter editor for method NSPECT.
+-->
+
+<cs:cardStack
+    xmlns="http://www.bruker.de/mri/generated/xsd/card"
+    xmlns:cs="http://www.bruker.de/mri/generated/xsd/cardstack"
+    xmlns:xi="http://www.w3.org/2001/XInclude">
+    <parameterCard displayName="Routine">
+        <column>
+          <parameter name="PVM_RepetitionTime"/>
+          <parameter name="PVM_NAverages"/>
+	  <parameter name="PVM_NRepetitions"/>
+   	  <parameter name="TrIncrement"/>
+       
+	  <parameter name="PVM_ScanTimeStr"/>
+          <textLine text=""/>
+          <parameter name="InvPulse.Flipangle" displayName="Inversion Pulse Flip Angle"/>
+          <parameter name="ExcPulse1.Flipangle" displayName="Excitation Pulse Flip Angle"/>
+	  <parameter name="PVM_Nucleus1Enum" displayName="Nucleus 1"/>
+	  <parameter name="PVM_Nucleus2Enum" displayName="Nucleus 2"/>
+        </column>
+        <column>
+	  <parameter name="PVM_SpecMatrix[0]" displayName="Acq. Points"/>
+	  <parameter name="PVM_SpecSWH[0]" displayName="Acq. Bandwidth"/>
+	  <parameter name="PVM_WsOnOff" displayName="Water Sup. Pulses"/>
+         </column>	
+    </parameterCard>
+    <parameterCard displayName="Spectroscopy">
+        <xi:include href="file:///XML_INCLUDE_DIR/Spec1D.xml"/>
+    </parameterCard>
+  <parameterCard displayName="Preparation">
+       <parameterCard displayName="Main">
+         <column>
+            <parameter name="PVM_DummyScans"/>
+            <parameter name="PVM_DummyScansDur"/>
+         </column>
+         <column>
+            <parameter name="PVM_WsMode" displayName="Water Suppression"/>
+            <parameter name="PVM_FatSupOnOff"/>
+            <parameter name="PVM_FovSatOnOff"/>
+            <parameter name="PVM_DecOnOff"/>
+            <parameter name="PVM_NoeOnOff"/>
+            <parameter name="PVM_TriggerModule"/>  
+         </column>
+        </parameterCard>
+       <xi:include href="file:///XML_INCLUDE_DIR/Suppression.xml"/>
+       <xi:include href="file:///XML_INCLUDE_DIR/FatSup.xml"/>
+       <xi:include href="file:///XML_INCLUDE_DIR/FovSat.xml"/>
+       <xi:include href="file:///XML_INCLUDE_DIR/Decoupling.xml"/>
+       <xi:include href="file:///XML_INCLUDE_DIR/Noe.xml"/>
+       <xi:include href="file:///XML_INCLUDE_DIR/Trigg.xml"/>
+    </parameterCard>
+  <parameterCard displayName="Optimization">
+    <parameterCard displayName="Main">
+      <column>
+	<parameter name="PVM_RefScanYN" displayName="Reference Scan"/>
+        <textLine text=""/>
+ 	<textLine text=""/>
+        <parameter name="PVM_NavOnOff"/>
+      </column>
+      <column>
+	<parameter name="Edc_OnOff"/>
+	<parameter name="EdcManualFilter"/>
+ 	<parameter name="EdcFilterWidthHz"/>
+	<parameter name="RetroFrequencyLock_OnOff"/>
+        <parameter name="PVM_DriftCompYesNo"/>
+        <parameter name="PVM_DriftCompUpdateTime"/>
+      </column>
+    </parameterCard>
+    <parameterCard displayName="Reference Scan">
+      <column>
+        <parameter name="PVM_RefScanNA"/>
+        <parameter name="PVM_RefScanRG"/>
+        <parameter name="PVM_RefScan"/>
+      </column>
+      <column>
+        <textLine text=""/>
+      </column>
+    </parameterCard>
+    <xi:include href="file:///XML_INCLUDE_DIR/Navigator.xml"/>
+   </parameterCard>
+    <parameterCard displayName="Sequence">
+        <parameterCard displayName="Main">
+            <column>
+                <textLine text=""/>
+                 <parameter name="ExcPulse1Enum" displayName="Excitation Pulse">
+                    <parameterCard displayName="Pulse Details">
+                        <column>
+                            <parameter name="ExcPulse1"/>
+                        </column>
+                    </parameterCard>
+                </parameter>
+                <parameter name="DeadTime"/>
+            </column>
+            <column>
+                <parameter name="Method"/>
+	     </column>
+        </parameterCard>
+        <xi:include href="file:///XML_INCLUDE_DIR/Freq1.xml"/>
+        <xi:include href="file:///XML_INCLUDE_DIR/Tx1.xml"/>
+        <xi:include href="file:///XML_INCLUDE_DIR/Freq2.xml"/>
+        <xi:include href="file:///XML_INCLUDE_DIR/Tx2.xml"/>
+    </parameterCard>
+    <parameterCard displayName="Setup" cardType="setup">
+        <parameterCard displayName="Main">
+        <column>
+            <parameter name="PVM_RefPowMod1" />
+            <parameter name="PVM_RefPowCh1" />
+            <parameter name="PVM_RefPowStat1" />
+            <parameter name="ACQ_jobs[0].receiverGain" displayName="Receiver Gain" widget="slider"/>
+	    <parameter name="O1" displayName="Offset Frequency"         widget="slider"/>
+            <parameter name="PVM_DeriveGains" displayName="Calc. Pulse Ampl."/>
+            <parameter name="ExcPulse1Ampl.patt" displayName="Exc. Pulse Attenuation" widget="slider" />
+            <textLine text=""/>
+        </column>
+        <column>
+            <textLine text=""/>
+            <textLine text=""/>
+            <textLine text=""/>
+            <parameter name="PVM_NavRg" widget="slider"/>
+            <textLine text=""/>
+            <textLine text=""/>
+            <parameter name="ExcPulse1Ampl.ppow" displayName="Exc. Pulse Power" />
+            <parameter name="ExcPulse1Ampl.pampl" displayName="Exc. Pulse Amplitude"/>
+        </column>
+	</parameterCard>
+        <xi:include href="file:///XML_INCLUDE_DIR/FatSupSetup.xml"/>
+        <xi:include href="file:///XML_INCLUDE_DIR/FovSatSetup.xml"/>
+	<xi:include href="file:///XML_INCLUDE_DIR/SuppressionSetup.xml"/>
+	<xi:include href="file:///XML_INCLUDE_DIR/mapshim.xml"/> 
+    </parameterCard>
+    <parameterCard displayName="Result" cardType="adjresult">
+      <column>
+        <textLine text="Receiver Gain Result:"/>
+        <textLine text="Rx Array Phases Result:"/>
+        <textLine text=""/>
+      </column>
+      <column>
+       <parameter name="ACQ_jobs[0].receiverGain" displayName="Receiver Gain"/>
+        <parameter name="PVM_ArrayPhase"/>
+      </column>
+    </parameterCard>
+    <parameterCard displayName="System">
+        <xi:include href="file:///XML_INCLUDE_DIR/CoilSelection.xml"/>
+    </parameterCard>
+    <parameterCard displayName="Reconstruction" cardType="reco">
+      <column>
+	<parameter name="Edc_OnOff"/>
+	<textLine text=""/>
+	<parameter name="RetroFrequencyLock_OnOff"/>
+      </column>
+      <column>
+	<parameter name="EdcManualFilter"/>
+ 	<parameter name="EdcFilterWidthHz"/>
+      </column> 
+    </parameterCard>
+    <xi:include href="file:///XML_INCLUDE_DIR/RecoParameters.xml"/>
+</cs:cardStack>
+

@@ -1,0 +1,95 @@
+;****************************************************************
+;
+; Copyright (c) 2002 - 2003
+; Bruker BioSpin MRI GmbH
+; D-76275 Ettlingen, Germany
+;
+; All Rights Reserved
+; 
+; NSPECT - non-selective spectroscopy (pulse + acquire)
+;
+;****************************************************************
+;
+; d0 - TR padding
+; d8 - SCON / BLKTR_MAN (Amplifier preblanking)
+
+#include <MRI.include>
+define delay dur1
+"dur1=d1-10u"  ;compensates for 10u delay (including de) in acqdec
+define loopcounter lds = {$DS}
+#include <PrepModulesHead.mod>
+#include <acqdec.mod>
+#include <Navigator.mod>
+preset off
+
+define list<loopcounter> avList={$AverageList}
+
+if (ACQ_jobs_size >1)
+{
+  INIT_DEVICES_JOBS
+} else {
+  INIT_DEVICES
+}
+       10u      ;delay after INIT_DEVICES needed
+        4u	rpp0
+		RG_JOB0 ; lasts 10u
+;----------------------------------start of the main loop ----------
+start, 	10u
+;----------------------------------preparation modules -------------
+subr TriggerSlice()
+subr FatSup()
+subr Noe()
+subr WsOvs(ph1, ph1)
+subr FovSat()
+
+        
+        
+        10u	fq1:f1
+ 	d8	gatepulse 1
+        (p1:sp1 ph2):f1
+        vd      gatepulse 1 
+	(p0:sp0 ph0):f1
+	dur1         
+        
+subr acqdec_jobs(ph1,ph0)  ;lasts aqq+10u
+        d2
+        10u ADC_END_JOB0
+        100u  ; delay after ADC_END_JOB needed
+
+if(PVM_NavOnOff == On)
+{
+	10u SWITCH_JOB1
+	NEXT_RG			;lasts 10u
+        20u	reload B0       ;close to nav acq.
+	subr NavigatorGlobal(sp1, ph0, ph1, ph0)
+        100u     ;delay after ADC_END_JOB needed
+        10u SWITCH_JOB0
+        RG_JOB0 ;lasts 10u
+}
+
+	d0
+        "lds =lds - 1"         ; this makes
+        if "lds>=0" goto start ; dummy scans
+	10u	ipp0
+
+lo to start times avList
+avList.inc
+
+        1u	rpp0
+        1u      ivd;
+lo to start times NR
+SETUP_GOTO(start)
+
+exit
+
+ph0  = 0 2 1 3
+ph1  = 0 
+ph2  = 1 3 2 0
+
+	
+
+
+
+
+
+
